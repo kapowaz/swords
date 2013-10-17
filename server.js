@@ -1,18 +1,16 @@
 #!/usr/bin/env node
 
-// http://www.davidmclifton.com/2011/07/22/simple-telnet-server-in-node-js/
-
 var Server = (function(){
-	var module = {
+  var module = {
     net:          require('net'),
     name:         'Server',
     connections:  [],
     server:       null,
     port:         4000,
     
-		start: function start(){
+    start: function start(){
       module.server = module.net.createServer(module.newConnection).listen(module.port);
-		}, // module.start()
+    }, // module.start()
     
     cleanInput: function cleanInput(data){
       return data.toString().replace(/(\r\n|\n|\r)/gm, '');
@@ -31,10 +29,10 @@ var Server = (function(){
     }, // module.receiveData(data)
     
     closeSocket: function closeSocket(socket) {
-    	var i = module.connections.indexOf(socket);
-    	if (i != -1) {
-    		module.connections.splice(i, 1);
-    	}
+      var i = module.connections.indexOf(socket);
+      if (i != -1) {
+        module.connections.splice(i, 1);
+      }
     }, // module.closeSocket(socket)
     
     newConnection: function newConnection(socket){
@@ -44,9 +42,9 @@ var Server = (function(){
       socket.on('data', function(data){ module.receiveData(socket, data); });
       socket.on('end', function(){ module.closeSocket(socket); });
     }, // module.newConnection(socket)
-	};
-	
-	return module;
+  };
+  
+  return module;
 }(Server || {}));
 
 Server.start();
