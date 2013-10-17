@@ -9,21 +9,18 @@ process.stdout.write('A game of bladesmanship, from an original idea by gretcher
 process.stdout.write('v0.1.0 © 2013 kapowaz\n');
 
 process.stdin.on('data', function(chunk) {
-  switch (true) {
-    case (chunk == 'help\n'):
+  command = chunk.replace(/\n$/,'');
+  switch (command) {
+    case 'help':
       process.stdout.write('Available commands: quit, help\n');
       break;
-    case (chunk == 'quit\n'):
-    case (chunk == 'exit\n'):
+    case 'quit':
+    case 'exit':
       process.stdout.write('Thanks for playing!\n');
       process.exit(0);
       break;
     default:
-      process.stdout.write('Unknown command ‘' + chunk.replace('\n','') + '’');
+      process.stdout.write('Unknown command ‘' + command + '’');
       break;
   }
 });
-
-// process.stdin.on('end', function() {
-//   process.stdout.write('end');
-// });
